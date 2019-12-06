@@ -2,14 +2,14 @@
 #include <Keypad.h>
 #include <Servo.h>
 
-Servo myservo; // creating myservo object
-int buttonPin = 12;//set button pin
-int buttonState = 0; // set buttonState
+Servo myservo; 
+int buttonPin = 12;
+int buttonState = 0; 
 
 
 
 Servo ServoMotor;
-char* password = "111";  // change the password here, just pick any 3 numbers
+char* password = "111"; 
 int position = 0;
 const byte ROWS = 4;
 const byte COLS = 4;
@@ -23,20 +23,19 @@ char keys[ROWS][COLS] = {
 byte rowPins[ROWS] = { 8, 7, 6, 9 };
 byte colPins[COLS] = { 5, 4, 3, 2 };
 Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
-int RedpinLock = 12;
-int GreenpinUnlock = 13;
+
 
 void setup()
 {
   ServoMotor.attach(11);
   LockedPosition(true);
-  myservo.attach(13);// attach the 13 pin to servo
-  pinMode(buttonPin, INPUT); // set button to input
+  myservo.attach(13);
+  pinMode(buttonPin, INPUT); 
 }
 
 void loop()
 {
-  buttonState = digitalRead(buttonPin); // read and save to the variable "buttonState" the actual state of button
+  buttonState = digitalRead(buttonPin); 
 
     if (buttonState == HIGH)
       myservo.write(0);
@@ -58,20 +57,18 @@ void loop()
   {
     LockedPosition(false);
   }
-  delay(100);
+  delay(50);
 }
 void LockedPosition(int locked)
 {
   if (locked)
   {
-    digitalWrite(RedpinLock, HIGH);
-    digitalWrite(GreenpinUnlock, LOW);
+
     ServoMotor.write(11);
   }
   else
   {
-    digitalWrite(RedpinLock, LOW);
-    digitalWrite(GreenpinUnlock, HIGH);
+
     ServoMotor.write(90);
     
     
